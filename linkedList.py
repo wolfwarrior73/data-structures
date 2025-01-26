@@ -10,7 +10,6 @@ class LinkedList:
         self.tail = self.head
 
     def get(self, index: int) -> int:
-        print(self.getValues())
         count = 0
         itr = self.head
         while itr:
@@ -44,23 +43,35 @@ class LinkedList:
         return count
         
     def remove(self, index: int) -> bool:
-        if index < 0 or index >= self.size() or not self.head:
+        #deals with out of bounds or an empty list
+        if index < 0 or index >= self.size():
             return False
+        
+
+        #if removing the head
         if index==0:
+            #heads next will always exist or would have been caught by out of bounds
             self.head = self.head.next
             return True
-
+        
+        #loop goes until node before desired node
         cursor = self.head
         for i in range(index-1):
             cursor = cursor.next
+        #cursor is now at point before desired remove
+
+        #we dont care about the .next.next, all we care about is .(next).next not to be None which it wont be becuase it would have been caught earlier
         cursor.next = cursor.next.next
+
+
+        #if .next.next does = None then we set the tail to the current cursor aka the one b4 the one we removed
         if not cursor.next:
             self.tail = cursor
         return True
 
 
 
-    def getValues(self) -> List[int]:
+    def getValues(self):
         List = []
         itr = self.head
         while itr:
