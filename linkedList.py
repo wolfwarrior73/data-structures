@@ -10,6 +10,7 @@ class LinkedList:
         self.tail = self.head
 
     def get(self, index: int) -> int:
+        print(self.getValues())
         count = 0
         itr = self.head
         while itr:
@@ -45,27 +46,21 @@ class LinkedList:
     def remove(self, index: int) -> bool:
         if index < 0 or index >= self.size() or not self.head:
             return False
-        
-        if index == 0: 
+        if index==0:
             self.head = self.head.next
-            if not self.head: 
-                self.tail = None
             return True
-        
-        itr = self.head
-        for _ in range(index - 1): 
-            if not itr.next:  
-                return False
-            itr = itr.next
-        
-      
-        itr.next = itr.next.next
-        if not itr.next: 
-            self.tail = itr
+
+        cursor = self.head
+        for i in range(index-1):
+            cursor = cursor.next
+        cursor.next = cursor.next.next
+        if not cursor.next:
+            self.tail = cursor
         return True
 
 
-    def getValues(self):
+
+    def getValues(self) -> List[int]:
         List = []
         itr = self.head
         while itr:
